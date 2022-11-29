@@ -17,6 +17,7 @@ public class popup_berhasil extends javax.swing.JFrame {
      */
     public popup_berhasil() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -32,6 +33,7 @@ public class popup_berhasil extends javax.swing.JFrame {
         bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {

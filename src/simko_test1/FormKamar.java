@@ -168,14 +168,14 @@ public class FormKamar extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // kondisi untuk menu edit
-        
+      
         if(klikedit = true){
-            editData();
+            editData2();
         } else {
             JOptionPane.showMessageDialog(null, "Pilih opsi data yang ingin diedit");
         }
        databaru = false;
-        
+       
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -350,6 +350,28 @@ public class FormKamar extends javax.swing.JFrame {
         }
         new Input_Kamar().setVisible(true);
         */
+    }
+    public void editData2(){
+        
+        Input_Kamar2 IK2 = new Input_Kamar2();
+        
+        int i =jTable1.getSelectedRow();
+        TableModel tbl = jTable1.getModel();
+             
+        String no = tbl.getValueAt(i, 0).toString();
+        String fasilitas = tbl.getValueAt(i, 1).toString();
+        String lantai = tbl.getValueAt(i, 2).toString();
+        String ukuran = tbl.getValueAt(i, 3).toString();
+        String harga = tbl.getValueAt(i, 4).toString();
+
+        IK2.tf_nokamar.setText(no);
+        IK2.tf_fasilitas.setText(fasilitas);
+        IK2.tf_lantai.setText(lantai);
+        IK2.tf_ukuran.setText(ukuran);
+        IK2.tf_harga.setText(harga);
+        
+        IK2.setVisible(true);
+       
     }
     
     /*
