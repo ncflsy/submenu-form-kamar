@@ -60,6 +60,7 @@ public class FormKamar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        jTable1.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 24)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -79,6 +80,7 @@ public class FormKamar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setRowHeight(40);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -149,7 +151,7 @@ public class FormKamar extends javax.swing.JFrame {
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Kamar Kost.png"))); // NOI18N
         bg.setText("jLabel1");
         getContentPane().add(bg);
-        bg.setBounds(10, 0, 1973, 1080);
+        bg.setBounds(0, 0, 1973, 1080);
 
         setSize(new java.awt.Dimension(1938, 1089));
         setLocationRelativeTo(null);
@@ -369,6 +371,7 @@ public class FormKamar extends javax.swing.JFrame {
         IK2.tf_lantai.setText(lantai);
         IK2.tf_ukuran.setText(ukuran);
         IK2.tf_harga.setText(harga);
+        databaru = true;
         
         IK2.setVisible(true);
        
