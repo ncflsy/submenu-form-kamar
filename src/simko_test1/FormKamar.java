@@ -168,13 +168,13 @@ public class FormKamar extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // kondisi untuk menu edit
+        
         if(klikedit = true){
             editData();
         } else {
             JOptionPane.showMessageDialog(null, "Pilih opsi data yang ingin diedit");
         }
-        
-        
+       databaru = false;
         
     }//GEN-LAST:event_jLabel7MouseClicked
 
