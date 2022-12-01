@@ -36,7 +36,7 @@ public class Input_Kamar2 extends javax.swing.JFrame {
      */
     
     
-    private final Koneksi koneksi = new Koneksi();
+    
     FormKamar IK = new FormKamar();
     
     
@@ -58,10 +58,11 @@ public class Input_Kamar2 extends javax.swing.JFrame {
         tf_harga = new javax.swing.JTextField();
         tf_nokamar = new javax.swing.JTextField();
         tf_fasilitas = new javax.swing.JTextField();
-        tf_lantai = new javax.swing.JTextField();
         tf_ukuran = new javax.swing.JTextField();
+        cb_lantai = new javax.swing.JComboBox<>();
         bg = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -99,17 +100,6 @@ public class Input_Kamar2 extends javax.swing.JFrame {
         });
         getContentPane().add(tf_fasilitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 480, 360, 50));
 
-        tf_lantai.setBackground(new Color(0,0,0,0));
-        tf_lantai.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 28)); // NOI18N
-        tf_lantai.setForeground(new Color(6, 40, 61));
-        tf_lantai.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        tf_lantai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_lantaiActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tf_lantai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 310, 360, 50));
-
         tf_ukuran.setBackground(new Color(0,0,0,0));
         tf_ukuran.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 28)); // NOI18N
         tf_ukuran.setForeground(new Color(6, 40, 61));
@@ -121,6 +111,14 @@ public class Input_Kamar2 extends javax.swing.JFrame {
         });
         getContentPane().add(tf_ukuran, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 480, 360, 50));
 
+        cb_lantai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih --", "1", "2", "3" }));
+        cb_lantai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_lantaiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cb_lantai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 310, 230, 40));
+
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Input Kamar Kost.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -130,7 +128,15 @@ public class Input_Kamar2 extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 770, 240, 70));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 780, 190, 60));
+
+        jButton2.setText("jButton1");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 780, 190, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,14 +155,14 @@ public class Input_Kamar2 extends javax.swing.JFrame {
                     sql,
                     
                     tf_fasilitas.getText(),
-                    tf_lantai.getText(),
+                    cb_lantai.getSelectedItem(),
                     tf_ukuran.getText(),
                     tf_harga.getText(),
                     tf_nokamar.getText()
             );
             
-            Connection conn = koneksi.getKoneksi();
-            PreparedStatement pst = conn.prepareStatement(sql);
+            java.sql.Connection conn = (Connection)config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             
             pst.execute();
             new pop_up.popup_berhasil().setVisible(true);
@@ -182,13 +188,20 @@ public class Input_Kamar2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_fasilitasActionPerformed
 
-    private void tf_lantaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_lantaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_lantaiActionPerformed
-
     private void tf_ukuranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_ukuranActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_ukuranActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new FormKamar().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cb_lantaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_lantaiActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cb_lantaiActionPerformed
 
    
     
@@ -232,10 +245,11 @@ public class Input_Kamar2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
+    public javax.swing.JComboBox<String> cb_lantai;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     public javax.swing.JTextField tf_fasilitas;
     public javax.swing.JTextField tf_harga;
-    public javax.swing.JTextField tf_lantai;
     public javax.swing.JTextField tf_nokamar;
     public javax.swing.JTextField tf_ukuran;
     // End of variables declaration//GEN-END:variables

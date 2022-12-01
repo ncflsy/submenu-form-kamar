@@ -5,10 +5,7 @@
 package simko_test1;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +16,15 @@ import java.awt.*;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import javax.swing.table.*;
+import java.sql.*;
+import java.awt.Frame;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.lang.*;
+
 /**
  *
  * @author nikof
@@ -30,7 +36,7 @@ public class FormKamar extends javax.swing.JFrame {
      */
     public boolean databaru;
     public boolean klikedit;
-    private final Koneksi koneksi = new Koneksi();
+   
   
       
     public FormKamar() {
@@ -73,7 +79,7 @@ public class FormKamar extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -89,9 +95,9 @@ public class FormKamar extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(410, 300, 1460, 720);
+        jScrollPane1.setBounds(410, 300, 1460, 320);
 
-        cb_filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "no kamar", "lantai", "ukuran", "harga" }));
+        cb_filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih --", "lantai", "ukuran", "harga" }));
         cb_filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_filterActionPerformed(evt);
@@ -106,7 +112,7 @@ public class FormKamar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(410, 210, 190, 60);
+        jLabel6.setBounds(390, 210, 190, 60);
 
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,7 +133,7 @@ public class FormKamar extends javax.swing.JFrame {
         tf_cari.setBackground(new Color(0,0,0,0));
         tf_cari.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 28)); // NOI18N
         tf_cari.setForeground(new Color(6, 40, 61));
-        tf_cari.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tf_cari.setBorder(null);
         tf_cari.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -160,11 +166,13 @@ public class FormKamar extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         klikedit = true;
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
         new Input_Kamar().setVisible(true);
+        this.dispose();
         databaru = true;
     }//GEN-LAST:event_jLabel6MouseClicked
 
@@ -177,7 +185,8 @@ public class FormKamar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Pilih opsi data yang ingin diedit");
         }
        databaru = false;
-       
+      
+       this.dispose();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -187,9 +196,9 @@ public class FormKamar extends javax.swing.JFrame {
             int row = jTable1.getSelectedRow();
             String no_kamar = jTable1.getModel().getValueAt (row, 0).toString();
             String resultSet = "DELETE FROM tb_kamar WHERE noKamar='"+ no_kamar +"'";
-            Connection conn = koneksi.getKoneksi();
-            PreparedStatement pst = conn.prepareStatement(resultSet);
-            
+
+            java.sql.Connection conn = (Connection)config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(resultSet);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Berhasil dihapus");
             getData();
@@ -214,13 +223,13 @@ public class FormKamar extends javax.swing.JFrame {
             
             
             String no_kamar = tf_cari.getText();
+            java.sql.Connection conn = (Connection)config.configDB();
             
-            Connection conn = koneksi.getKoneksi();
             Statement stm = conn.createStatement();
             ResultSet result = stm.executeQuery("SELECT * FROM tb_kamar WHERE noKamar='" + no_kamar+"'");
             
             DefaultTableModel tbl = new DefaultTableModel();
-            tbl.addColumn("noKamar");
+            tbl.addColumn("no kamar");
             tbl.addColumn("fasilitas");
             tbl.addColumn("lantai");
             tbl.addColumn("ukuran");
@@ -257,16 +266,17 @@ public class FormKamar extends javax.swing.JFrame {
             
             int filter = cb_filter.getSelectedIndex();
             System.out.println(filter);
-            Connection conn = koneksi.getKoneksi();
+            java.sql.Connection conn = (Connection)config.configDB();
+            
             Statement stm = conn.createStatement();
             String msql;
-            if (filter == 0) {
+            if (filter == 1) {
                 msql = "SELECT * FROM tb_kamar GROUP BY noKamar ORDER BY noKamar ASC";
             }
-            else if (filter == 1){
+            else if (filter == 2){
                 msql = "SELECT * FROM tb_kamar GROUP BY noKamar ORDER BY lantai ASC";
             }
-            else if (filter == 2){
+            else if (filter == 3){
                 msql = "SELECT * FROM tb_kamar GROUP BY noKamar ORDER BY ukuran ASC";
             }
             else{
@@ -313,46 +323,18 @@ public class FormKamar extends javax.swing.JFrame {
         String lantai = tbl.getValueAt(i, 2).toString();
         String ukuran = tbl.getValueAt(i, 3).toString();
         String harga = tbl.getValueAt(i, 4).toString();
-
+        
+        int Lantai = getStrToInt(lantai);
         IK.tf_nokamar.setText(no);
         IK.tf_fasilitas.setText(fasilitas);
-        IK.tf_lantai.setText(lantai);
+        IK.cb_lantai.setSelectedIndex(Lantai);
         IK.tf_ukuran.setText(ukuran);
-        IK.tf_harga.setText(harga);
+       IK.tf_harga.setText(harga);
         
         IK.setVisible(true);
        
-        /*
-        try{
-            databaru = false;
-            
-            int row = jTable1.getSelectedRow();
-            String no_kamar = jTable1.getModel().getValueAt (row, 0).toString();
-            
-            Connection conn = koneksi.getKoneksi();
-            Statement stm = conn.createStatement();
-            ResultSet result = stm.executeQuery("SELECT * FROM tb_kamar WHERE noKamar='" + no_kamar+"'");
-            
-             
-            if (result.next()){
-                
-                jTextField1.setText(result.getString("noKamar"));
-                jTextField2.setText(result.getString("fasilitas"));
-                jTextField3.setText(result.getString("lantai"));
-                jTextField4.setText(result.getString("ukuran"));
-                jTextField5.setText(result.getString("harga"));
-                
-                
-            }
-            
-             
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FormKamar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        new Input_Kamar().setVisible(true);
-        */
     }
+    
     public void editData2(){
         
         Input_Kamar2 IK2 = new Input_Kamar2();
@@ -365,10 +347,10 @@ public class FormKamar extends javax.swing.JFrame {
         String lantai = tbl.getValueAt(i, 2).toString();
         String ukuran = tbl.getValueAt(i, 3).toString();
         String harga = tbl.getValueAt(i, 4).toString();
-
+       
         IK2.tf_nokamar.setText(no);
         IK2.tf_fasilitas.setText(fasilitas);
-        IK2.tf_lantai.setText(lantai);
+        IK2.cb_lantai.setSelectedItem(lantai);
         IK2.tf_ukuran.setText(ukuran);
         IK2.tf_harga.setText(harga);
         databaru = true;
@@ -377,40 +359,10 @@ public class FormKamar extends javax.swing.JFrame {
        
     }
     
-    /*
-    
-   // edit data normalll
-    public void editData(){
-        try{
-            databaru = false;
-            
-            int row = jTable1.getSelectedRow();
-            String no_kamar = jTable1.getModel().getValueAt (row, 0).toString();
-            
-            Connection conn = koneksi.getKoneksi();
-            Statement stm = conn.createStatement();
-            ResultSet result = stm.executeQuery("SELECT * FROM tb_kamar WHERE noKamar='" + no_kamar+"'");
-            
-            
-            if (result.next()){
-                jTextField1.setText(result.getString("noKamar"));
-                jTextField2.setText(result.getString("fasilitas"));
-                jTextField3.setText(result.getString("lantai"));
-                jTextField4.setText(result.getString("ukuran"));
-                jTextField5.setText(result.getString("harga"));
-                
-            }
-            
-             
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FormKamar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-     */
+  
     private void getData(){
         try{
-            Connection conn = koneksi.getKoneksi();
+            java.sql.Connection conn = (Connection)config.configDB();
             Statement stm = conn.createStatement();
             ResultSet result = stm.executeQuery("select * from tb_kamar");
             
@@ -486,4 +438,8 @@ public class FormKamar extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     public javax.swing.JTextField tf_cari;
     // End of variables declaration//GEN-END:variables
+
+    private int getStrToInt(String lantai) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
