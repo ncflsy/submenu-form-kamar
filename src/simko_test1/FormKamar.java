@@ -200,7 +200,7 @@ public class FormKamar extends javax.swing.JFrame {
             java.sql.Connection conn = (Connection)config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(resultSet);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Berhasil dihapus");
+            new pop_up.popup_berhasilhapus().setVisible(true);
             getData();
             
         } catch (SQLException ex) {

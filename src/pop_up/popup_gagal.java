@@ -10,12 +10,12 @@ import simko_test1.FormKamar;
  *
  * @author nikof
  */
-public class popup_berhasil extends javax.swing.JFrame {
+public class popup_gagal extends javax.swing.JFrame {
 
     /**
      * Creates new form popup_berhasil
      */
-    public popup_berhasil() {
+    public popup_gagal() {
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -43,7 +43,7 @@ public class popup_berhasil extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 171, 100, 40));
 
-        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/simpan.png"))); // NOI18N
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gagal disimpan.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -53,7 +53,6 @@ public class popup_berhasil extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         
-        new FormKamar().setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
@@ -73,20 +72,21 @@ public class popup_berhasil extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popup_gagal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popup_gagal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popup_gagal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(popup_berhasil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popup_gagal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new popup_berhasil().setVisible(true);
+                new popup_gagal().setVisible(true);
             }
         });
     }

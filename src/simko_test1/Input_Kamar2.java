@@ -168,7 +168,7 @@ public class Input_Kamar2 extends javax.swing.JFrame {
             new pop_up.popup_berhasil().setVisible(true);
             
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Gagal disimpan" + ex);
+                new pop_up.popup_gagal().setVisible(true);
             }
         } 
         

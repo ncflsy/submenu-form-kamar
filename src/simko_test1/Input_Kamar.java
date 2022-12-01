@@ -170,7 +170,7 @@ public class Input_Kamar extends javax.swing.JFrame {
             new FormKamar().setVisible(true);
             this.dispose();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Gagal disimpan" + ex);
+                new pop_up.popup_gagal().setVisible(true);
             }
         } 
       
