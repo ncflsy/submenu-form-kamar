@@ -4,7 +4,12 @@
  */
 package pop_up;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import simko_test1.FormKamar;
+import simko_test1.Input_Kamar;
+import simko_test1.config;
 
 /**
  *
@@ -64,6 +69,22 @@ public class popup_hapus extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // hapus
+        FormKamar FK = new FormKamar();
+        try{
+            int row = FK.jTable1.getSelectedRow();
+            String no_kamar = FK.jTable1.getModel().getValueAt (row, 0).toString();
+            String resultSet = "DELETE FROM tb_kamar WHERE noKamar='"+ no_kamar +"'";
+
+            java.sql.Connection conn = (Connection)config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(resultSet);
+            pst.execute();
+            new pop_up.popup_berhasilhapus().setVisible(true);
+            FK.getData();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Gagal dihapus");
+        }
+        /*
         try{
             int row = jTable1.getSelectedRow();
             String no_kamar = jTable1.getModel().getValueAt (row, 0).toString();
@@ -78,6 +99,7 @@ public class popup_hapus extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Gagal dihapus");
         }
+        */
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**

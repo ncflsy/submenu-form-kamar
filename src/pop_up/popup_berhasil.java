@@ -51,9 +51,10 @@ public class popup_berhasil extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
+        new FormKamar().setVisible(true);
         this.dispose();
         
-        new FormKamar().setVisible(true);
+        
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**

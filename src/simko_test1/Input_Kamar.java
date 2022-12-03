@@ -113,6 +113,7 @@ public class Input_Kamar extends javax.swing.JFrame {
         });
         getContentPane().add(tf_ukuran, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 480, 360, 50));
 
+        cb_lantai.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
         cb_lantai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih --", "1", "2", "3" }));
         cb_lantai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +168,6 @@ public class Input_Kamar extends javax.swing.JFrame {
             
             pst.execute();
             new pop_up.popup_berhasil().setVisible(true);
-            new FormKamar().setVisible(true);
             this.dispose();
             } catch (SQLException ex) {
                 new pop_up.popup_gagal().setVisible(true);
@@ -195,7 +195,6 @@ public class Input_Kamar extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
         new FormKamar().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -37,13 +37,13 @@ public class FormKamar extends javax.swing.JFrame {
     public boolean databaru;
     public boolean klikedit;
    
-  
-      
+
     public FormKamar() {
         initComponents();
         getData();
         databaru = true;
         klikedit = false;
+        
     }
 
     /**
@@ -98,13 +98,14 @@ public class FormKamar extends javax.swing.JFrame {
         jScrollPane1.setBounds(410, 300, 1460, 320);
 
         cb_filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih --", "lantai", "ukuran", "harga" }));
+        cb_filter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cb_filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_filterActionPerformed(evt);
             }
         });
         getContentPane().add(cb_filter);
-        cb_filter.setBounds(1230, 210, 110, 29);
+        cb_filter.setBounds(1210, 200, 150, 50);
 
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -120,7 +121,7 @@ public class FormKamar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(620, 210, 190, 60);
+        jLabel7.setBounds(610, 210, 190, 60);
 
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -128,7 +129,7 @@ public class FormKamar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(830, 210, 200, 60);
+        jLabel8.setBounds(820, 210, 200, 60);
 
         tf_cari.setBackground(new Color(0,0,0,0));
         tf_cari.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 28)); // NOI18N
@@ -172,21 +173,23 @@ public class FormKamar extends javax.swing.JFrame {
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
         new Input_Kamar().setVisible(true);
-        this.dispose();
+        
         databaru = true;
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // kondisi untuk menu edit
+        Input_Kamar2 IK2 = new Input_Kamar2();
       
         if(klikedit = true){
-            editData2();
+            editData2();   
+           
         } else {
             JOptionPane.showMessageDialog(null, "Pilih opsi data yang ingin diedit");
         }
        databaru = false;
-      
        this.dispose();
+      
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -265,7 +268,7 @@ public class FormKamar extends javax.swing.JFrame {
             
             
             int filter = cb_filter.getSelectedIndex();
-            System.out.println(filter);
+            
             java.sql.Connection conn = (Connection)config.configDB();
             
             Statement stm = conn.createStatement();
@@ -311,34 +314,11 @@ public class FormKamar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cb_filterActionPerformed
 
-    public void editData(){
-        
-        Input_Kamar IK = new Input_Kamar();
-        
-        int i =jTable1.getSelectedRow();
-        TableModel tbl = jTable1.getModel();
-             
-        String no = tbl.getValueAt(i, 0).toString();
-        String fasilitas = tbl.getValueAt(i, 1).toString();
-        String lantai = tbl.getValueAt(i, 2).toString();
-        String ukuran = tbl.getValueAt(i, 3).toString();
-        String harga = tbl.getValueAt(i, 4).toString();
-        
-        int Lantai = getStrToInt(lantai);
-        IK.tf_nokamar.setText(no);
-        IK.tf_fasilitas.setText(fasilitas);
-        IK.cb_lantai.setSelectedIndex(Lantai);
-        IK.tf_ukuran.setText(ukuran);
-       IK.tf_harga.setText(harga);
-        
-        IK.setVisible(true);
-       
-    }
     
     public void editData2(){
         
         Input_Kamar2 IK2 = new Input_Kamar2();
-        
+      
         int i =jTable1.getSelectedRow();
         TableModel tbl = jTable1.getModel();
              
@@ -348,19 +328,37 @@ public class FormKamar extends javax.swing.JFrame {
         String ukuran = tbl.getValueAt(i, 3).toString();
         String harga = tbl.getValueAt(i, 4).toString();
        
-        IK2.tf_nokamar.setText(no);
-        IK2.tf_fasilitas.setText(fasilitas);
-        IK2.cb_lantai.setSelectedItem(lantai);
-        IK2.tf_ukuran.setText(ukuran);
-        IK2.tf_harga.setText(harga);
-        databaru = true;
+        if (no==null) {
+            IK2.tf_nokamar.setText("");
+        } else{
+            IK2.tf_nokamar.setText(no);
+        }
+        if (fasilitas==null) {
+            IK2.tf_fasilitas.setText("");
+        } else{
+            IK2.tf_fasilitas.setText(fasilitas);
+        }
+        if (lantai==null) {
+            IK2.cb_lantai.setSelectedItem(lantai);
+        } else{
+            IK2.cb_lantai.setSelectedItem(lantai);
+        }
+        if (ukuran==null) {
+            IK2.tf_ukuran.setText("");
+        } else{
+            IK2.tf_ukuran.setText(ukuran);
+        }
+        if (ukuran==null) {
+            IK2.tf_harga.setText("");
+        } else{
+            IK2.tf_harga.setText(harga);
+        }
         
-        IK2.setVisible(true);
-       
+         IK2.setVisible(true);
     }
     
   
-    private void getData(){
+    public void getData(){
         try{
             java.sql.Connection conn = (Connection)config.configDB();
             Statement stm = conn.createStatement();
@@ -435,7 +433,7 @@ public class FormKamar extends javax.swing.JFrame {
     public static final javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     public javax.swing.JTextField tf_cari;
     // End of variables declaration//GEN-END:variables
 
